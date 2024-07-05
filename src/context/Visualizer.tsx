@@ -1,3 +1,5 @@
+"use client"
+
 import { SortingAlgorithmType } from "@/lib/types";
 import { MAX_ANIMATION_SPEED } from "@/lib/utils";
 import { createContext, useContext, useState } from "react";
