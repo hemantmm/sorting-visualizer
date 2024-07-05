@@ -28,7 +28,20 @@ export const SortingAlgorithmProvider=({children}:{children:React.ReactNode})=>{
     const [animationSpeed,setAnimationSpeed]=useState<number>(MAX_ANIMATION_SPEED)
     const [isAnimationComplete,setIsAnimationComplete]=useState<boolean>(false)
 
-    const resetArrayAndAnimation=()=>{}
+    const resetArrayAndAnimation=()=>
+    {
+        const contentContainer=document.getElementById("content-container")
+        if(!contentContainer)
+        {
+            return;
+        }
+        const contentContainerWidth=contentContainer.clientWidth
+        const tempArray:number[]=[];
+        const numLines=contentContainerWidth/8;
+        const containerHeight=window.innerHeight
+        const maxLineHeight=Math.max(containerHeight-420,100)
+        
+    }
 
     const runAnimation=()=>{}
 
