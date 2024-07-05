@@ -1,16 +1,29 @@
 "use client";
 
+import { Select } from "@/components/Input/Select";
 import { Slider } from "@/components/Input/Slider";
 import { useSortingAlgorithmContext } from "@/context/Visualizer";
+import { SortingAlgorithmType } from "@/lib/types";
+import { algorithmOptions } from "@/lib/utils";
 import { useEffect } from "react";
 
 export default function Home() {
-const {arrayToSort,isSorting,setAnimationSpeed,animationSpeed}=useSortingAlgorithmContext();
+const {arrayToSort,isSorting,setAnimationSpeed,animationSpeed,selectedAlgorithm,setSelectedAlgorithm}=useSortingAlgorithmContext();
 
 useEffect(()=>{
   console.log("animationspped",animationSpeed);
   // console.log("");
 },[animationSpeed])
+
+const handleSelectChange=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+  setSelectedAlgorithm(e.target.value as SortingAlgorithmType)
+}
+
+useEffect(()=>{
+  console.log("selectedAlgo",selectedAlgorithm);
+  // console.log("");
+},[selectedAlgorithm])
+
   return (
     <main className="absolute top-0 h-screen w-screen z-[-2] bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#150229_1px)] bg-[size:40px_40px]">
       <div className="flex h-full justify-center">
@@ -19,6 +32,8 @@ useEffect(()=>{
             <h1 className="text-gray-300 text-2xl font-light hidden md:flex">Sorting Visualizer</h1>
             <div className="text-gray-300 flex items-center justify-center gap-4">
               <Slider isDisabled={isSorting} value={animationSpeed} handleChange={(e)=>setAnimationSpeed(Number(e.target.value))} />
+              <Select options={algorithmOptions} defaultValue={selectedAlgorithm} onChange={handleSelectChange} isDisabled={isSorting} />
+              <button className="flex items-center justify-center" onClick={}></button>
             </div>
           </div>
           <div className="relative h-[calc(100vh-66px)] w-full">
