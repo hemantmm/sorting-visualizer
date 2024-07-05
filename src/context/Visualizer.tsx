@@ -30,6 +30,11 @@ export const SortingAlgorithmProvider=({children}:{children:React.ReactNode})=>{
 
     useEffect(()=>{
         resetArrayAndAnimation()
+        window.addEventListener("resize",resetArrayAndAnimation)
+        
+        return()=>{
+            window.removeEventListener("resize",resetArrayAndAnimation)
+        }
     },[])
 
     const resetArrayAndAnimation = () => {
