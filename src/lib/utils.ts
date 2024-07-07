@@ -42,3 +42,15 @@ export function generateAnimationArray(
         //     return selectionSort(array,runAnimation)
     }
 }
+
+export const sortingAlgorithmsData = {
+    bubble: {
+      title: "Bubble Sort",
+      description:
+        // "A simple comparison-based sorting algorithm. Bubble sort repeatedly compares and swaps adjacent elements if they are in the wrong order, moving larger elements towards the end with each pass through the list. This process continues until the list is sorted and no more swaps are needed.",
+        "lorem23",
+      worstCase: "O(n²)",
+      averageCase: "O(n²)",
+      bestCase: "O(n)",
+    }
+}
