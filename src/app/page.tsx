@@ -62,6 +62,7 @@ useEffect(()=>{
               <div className="flex w-full text-gray-400 p-4 rounded border border-system-purple20 bg-system-purple80 bg-opacity-10 gap-6">
                 <div className="flex flex-col items-start justify-start w-3/4">
                   <h3 className="text-lg">
+                    {/* {sortingAlgorithmsData[selectedAlgorithm].title} */}
                     {sortingAlgorithmsData[selectedAlgorithm].title}
                   </h3>
                   <p className="text-sm text-gray-500 pt-2">
