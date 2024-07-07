@@ -6,9 +6,11 @@ import { useSortingAlgorithmContext } from "@/context/Visualizer";
 import { SortingAlgorithmType } from "@/lib/types";
 import { algorithmOptions } from "@/lib/utils";
 import { useEffect } from "react";
+import { FaPlayCircle } from "react-icons/fa";
+import { RxReset } from "react-icons/rx";
 
 export default function Home() {
-const {arrayToSort,isSorting,setAnimationSpeed,animationSpeed,selectedAlgorithm,setSelectedAlgorithm}=useSortingAlgorithmContext();
+const {arrayToSort,isSorting,setAnimationSpeed,animationSpeed,selectedAlgorithm,setSelectedAlgorithm,requiresReset}=useSortingAlgorithmContext();
 
 useEffect(()=>{
   console.log("animationspped",animationSpeed);
@@ -33,7 +35,13 @@ useEffect(()=>{
             <div className="text-gray-300 flex items-center justify-center gap-4">
               <Slider isDisabled={isSorting} value={animationSpeed} handleChange={(e)=>setAnimationSpeed(Number(e.target.value))} />
               <Select options={algorithmOptions} defaultValue={selectedAlgorithm} onChange={handleSelectChange} isDisabled={isSorting} />
-              <button className="flex items-center justify-center" onClick={}></button>
+              <button className="flex items-center justify-center" onClick={}>
+                {requiresReset?(
+                  <RxReset className="text-gray-400 h-8 w-8" />
+                ):(
+                  <FaPlayCircle className="text-system-green60 h-8 w-8" />
+                )}
+              </button>
             </div>
           </div>
           <div className="relative h-[calc(100vh-66px)] w-full">
