@@ -4,13 +4,13 @@ import { Select } from "@/components/Input/Select";
 import { Slider } from "@/components/Input/Slider";
 import { useSortingAlgorithmContext } from "@/context/Visualizer";
 import { SortingAlgorithmType } from "@/lib/types";
-import { algorithmOptions } from "@/lib/utils";
+import { algorithmOptions, generateAnimationArray } from "@/lib/utils";
 import { useEffect } from "react";
 import { FaPlayCircle } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
 
 export default function Home() {
-const {arrayToSort,isSorting,setAnimationSpeed,animationSpeed,selectedAlgorithm,setSelectedAlgorithm,requiresReset}=useSortingAlgorithmContext();
+const {arrayToSort,isSorting,setAnimationSpeed,animationSpeed,selectedAlgorithm,setSelectedAlgorithm,requiresReset,resetArrayAndAnimation,runAnimation}=useSortingAlgorithmContext();
 
 useEffect(()=>{
   console.log("animationspped",animationSpeed);
@@ -19,6 +19,21 @@ useEffect(()=>{
 
 const handleSelectChange=(e:React.ChangeEvent<HTMLSelectElement>)=>{
   setSelectedAlgorithm(e.target.value as SortingAlgorithmType)
+}
+
+const handlePlay=()=>{
+  if(requiresReset)
+  {
+    resetArrayAndAnimation()
+    return;
+  }
+  // generate animation array
+  generateAnimationArray(
+    selectedAlgorithm,
+    isSorting,
+    arrayToSort,
+    runAnimation
+  )
 }
 
 useEffect(()=>{
@@ -35,7 +50,7 @@ useEffect(()=>{
             <div className="text-gray-300 flex items-center justify-center gap-4">
               <Slider isDisabled={isSorting} value={animationSpeed} handleChange={(e)=>setAnimationSpeed(Number(e.target.value))} />
               <Select options={algorithmOptions} defaultValue={selectedAlgorithm} onChange={handleSelectChange} isDisabled={isSorting} />
-              <button className="flex items-center justify-center" onClick={}>
+              <button className="flex items-center justify-center" onClick={handlePlay}>
                 {requiresReset?(
                   <RxReset className="text-gray-400 h-8 w-8" />
                 ):(

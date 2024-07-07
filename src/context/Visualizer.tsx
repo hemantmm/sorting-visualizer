@@ -1,6 +1,6 @@
 "use client"
 
-import { SortingAlgorithmType } from "@/lib/types";
+import { AnimationArrayType, SortingAlgorithmType } from "@/lib/types";
 import { MAX_ANIMATION_SPEED, generateRandomNumberFromInterval } from "@/lib/utils";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -16,7 +16,7 @@ interface SortingAlgorithmContextType {
         isAnimationComplete:boolean;
         setIsAnimationComplete:(isComplete:boolean)=>void;
         resetArrayAndAnimation:()=>void;
-        runAnimation:()=>void;
+        runAnimation:(animations:AnimationArrayType)=>void;
         requiresReset:boolean
 }
 
@@ -58,7 +58,51 @@ export const SortingAlgorithmProvider=({children}:{children:React.ReactNode})=>{
         setIsAnimationComplete(false);
     };
 
-    const runAnimation=()=>{}
+    const runAnimation=(animations:AnimationArrayType)=>{
+        setIsSorting(true)
+
+        const inverseSpeed=(1/animationSpeed)*200;
+        const arrayLines=document.getElementsByClassName("array-line") as HTMLCollectionOf<HTMLElement>
+
+        const updateClassList=(
+            indexes:number[],
+            addClassName:string,
+            removeClassName:string
+        )=>{
+            indexes.forEach((index)=>{
+                arrayLines[index].classList.add(addClassName)
+                arrayLines[index].classList.add(removeClassName)
+            })
+        }
+        
+        const updateHeightValue=(
+            lineIndex:number,
+            newHeight:number | undefined,
+        )=>{
+            if(newHeight===undefined)
+            {
+                return;
+            }
+            arrayLines[lineIndex].style.height=`${newHeight}px`
+        }
+
+        animations.forEach((animation,index)=>{
+            setTimeout(()=>{
+                const [values,isSwap]=animation
+
+                if(!isSwap)
+                {
+                    updateClassList(values,"change-line-color","default-line-color")
+                    setTimeout(()=>{updateClassList(values,"default-line-color","change-line-color")},inverseSpeed)
+                }
+                else
+                {
+                    const [lineIndex,newHeight]=values;
+                    updateHeightValue(lineIndex,newHeight)
+                }
+            },index*inverseSpeed)
+        })
+    }
 
     const value={
         arrayToSort,
@@ -87,124 +131,3 @@ export const useSortingAlgorithmContext=()=>{
         }
         return context
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// "use client";
-
-// import {SortingAlgorithmType } from "@/lib/types";
-// import {
-//   MAX_ANIMATION_SPEED,
-//   generateRandomNumberFromInterval,
-// } from "@/lib/utils";
-// import React, {
-//   ReactNode,
-//   createContext,
-//   useContext,
-//   useEffect,
-//   useState,
-// } from "react";
-
-// interface SortingAlgorithmContextType {
-//   arrayToSort: number[];
-//   selectedAlgorithm: SortingAlgorithmType;
-//   isSorting: boolean;
-//   setSelectedAlgorithm: (algorithm: SortingAlgorithmType) => void;
-//   setIsSorting: (isSorting: boolean) => void;
-//   animationSpeed: number;
-//   setAnimationSpeed: (speed: number) => void;
-//   resetArrayAndAnimation: () => void;
-//   runAnimation: () => void;
-//   isAnimationComplete: boolean;
-//   requiresReset: boolean;
-// }
-
-// const SortingAlgorithmContext = createContext<
-//   SortingAlgorithmContextType | undefined
-// >(undefined);
-
-// export const SortingAlgorithmProvider = ({
-//   children,
-// }: {
-//   children: React.ReactNode;
-// }) => {
-//   const [arrayToSort, setArrayToSort] = useState<number[]>([]);
-//   const [selectedAlgorithm, setSelectedAlgorithm] =
-//     useState<SortingAlgorithmType>("bubble");
-//   const [isSorting, setIsSorting] = useState<boolean>(false);
-//   const [isAnimationComplete, setIsAnimationComplete] =
-//     useState<boolean>(false);
-//   const [animationSpeed, setAnimationSpeed] =
-//     useState<number>(MAX_ANIMATION_SPEED);
-//   const requiresReset = isAnimationComplete || isSorting;
-
-//   useEffect(() => {
-//     resetArrayAndAnimation();
-//   }, []);
-
-//   const resetArrayAndAnimation = () => {
-//     const contentContainer = document.getElementById("content-container");
-//     if (!contentContainer) return;
-//     const contentContainerWidth = contentContainer.clientWidth;
-
-//     const tempArray: number[] = [];
-//     const numLines = contentContainerWidth / 8;
-//     const containerHeight = window.innerHeight;
-//     const maxLineHeight = Math.max(containerHeight - 420, 100);
-//     for (let i = 0; i < numLines; i++) {
-//       tempArray.push(generateRandomNumberFromInterval(35, maxLineHeight));
-//     }
-
-//     setArrayToSort(tempArray);
-//     setIsSorting(false);
-//     setIsAnimationComplete(false);
-//   };
-
-//   const runAnimation = () => {};
-
-//   const value = {
-//     arrayToSort,
-//     selectedAlgorithm,
-//     setSelectedAlgorithm,
-//     isSorting,
-//     setIsSorting,
-//     animationSpeed,
-//     setAnimationSpeed,
-//     isAnimationComplete,
-//     resetArrayAndAnimation,
-//     runAnimation,
-//     requiresReset,
-//   };
-
-//   return (
-//     <SortingAlgorithmContext.Provider value={value}>
-//       {children}
-//     </SortingAlgorithmContext.Provider>
-//   );
-// };
-
-// export const useSortingAlgorithmContext = (): SortingAlgorithmContextType => {
-//   const context = useContext(SortingAlgorithmContext);
-//   if (context === undefined) {
-//     throw new Error(
-//       "useSortingAlgorithmContext must be used within a SortingAlgorithmProvider"
-//     );
-//   }
-//   return context;
-// };
