@@ -14,7 +14,6 @@ const {arrayToSort,isSorting,setAnimationSpeed,animationSpeed,selectedAlgorithm,
 
 useEffect(()=>{
   console.log("animationspped",animationSpeed);
-  // console.log("");
 },[animationSpeed])
 
 const handleSelectChange=(e:React.ChangeEvent<HTMLSelectElement>)=>{

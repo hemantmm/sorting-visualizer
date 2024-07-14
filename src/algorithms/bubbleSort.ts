@@ -17,7 +17,7 @@ function runBubbleSort(array:number[],animations:AnimationArrayType)
     }
 }
 
-export function generateBubbleSortAnimation(
+export function generateBubbleSortAnimationArray    (
     isSorting:boolean,
     array:number[],
     runAnimation:(animations:AnimationArrayType)=>void

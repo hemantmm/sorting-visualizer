@@ -1,5 +1,7 @@
-import { generateBubbleSortAnimation } from "@/algorithms/bubbleSort";
+import { generateBubbleSortAnimationArray } from "@/algorithms/bubbleSort";
 import { AnimationArrayType, SortingAlgorithmType } from "./types";
+import { generateSelectionSortAnimationArray } from "@/algorithms/selectionSort";
+import { title } from "process";
 
 export const MIN_ANIMATION_SPEED=100;
 export const MAX_ANIMATION_SPEED=400;
@@ -27,19 +29,13 @@ export function generateAnimationArray(
     {
         case "bubble":
             // generateBubbleSortAnimation
-            generateBubbleSortAnimation(isSorting,array,runAnimation)
+            generateBubbleSortAnimationArray(isSorting,array,runAnimation)
+            break;
+        case "selection":
+            generateSelectionSortAnimationArray(isSorting,array,runAnimation)
             break;
         default:
         break;
-        //     return bubbleSort(array,runAnimation)
-        // case "quick":
-        //     return quickSort(array,runAnimation)
-        // case "merge":
-        //     return mergeSort(array,runAnimation)
-        // case "insertion":
-        //     return insertionSort(array,runAnimation)
-        // case "selection":
-        //     return selectionSort(array,runAnimation)
     }
 }
 
@@ -52,5 +48,13 @@ export const sortingAlgorithmsData = {
       worstCase: "O(n²)",
       averageCase: "O(n²)",
       bestCase: "O(n)",
+    },
+    selection:{
+        title:"Selection Sort",
+        description:
+        "lorem1234",
+        worstCase: "O(n²)",
+        averageCase: "O(n²)",
+        bestCase: "O(n²)"
     }
 }
