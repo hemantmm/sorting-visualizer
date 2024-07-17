@@ -33,17 +33,17 @@ export function generateAnimationArray(
             // generateBubbleSortAnimation
             generateBubbleSortAnimationArray(isSorting,array,runAnimation)
             break;
-        case "selection":
-            generateSelectionSortAnimationArray(isSorting,array,runAnimation)
-            break;
-        case "insertion":
-            generateInsertionSortAnimationArray(isSorting,array,runAnimation)
+        case "quick":
+            generateQuickSortAnimationArray(isSorting,array,runAnimation)
             break;
         case "merge":
             generateMergeSortAnimationArray(isSorting,array,runAnimation)
             break;
-        case "quick":
-            generateQuickSortAnimationArray(isSorting,array,runAnimation)
+        case "insertion":
+            generateInsertionSortAnimationArray(isSorting,array,runAnimation)
+            break;
+        case "selection":
+            generateSelectionSortAnimationArray(isSorting,array,runAnimation)
             break;
         default:
         break;
@@ -54,8 +54,7 @@ export const sortingAlgorithmsData = {
     bubble: {
       title: "Bubble Sort",
       description:
-        // "A simple comparison-based sorting algorithm. Bubble sort repeatedly compares and swaps adjacent elements if they are in the wrong order, moving larger elements towards the end with each pass through the list. This process continues until the list is sorted and no more swaps are needed.",
-        "lorem23",
+        "A simple comparison-based sorting algorithm. Bubble sort repeatedly compares and swaps adjacent elements if they are in the wrong order, moving larger elements towards the end with each pass through the list. This process continues until the list is sorted and no more swaps are needed.",
       worstCase: "O(n²)",
       averageCase: "O(n²)",
       bestCase: "O(n)",
@@ -63,15 +62,15 @@ export const sortingAlgorithmsData = {
     selection:{
         title:"Selection Sort",
         description:
-        "lorem1234",
+            "Selection sort works by repeatedly finding the minimum element from the unsorted portion of the list and swapping it with the element at the current position. This process is continued for each position in the list, moving the boundary of the sorted and unsorted portions one element forward each time until the entire list is sorted.",
         worstCase: "O(n²)",
         averageCase: "O(n²)",
-        bestCase: "O(n²)"
+        bestCase: "O(n²)",
     },
     insertion:{
         title:"Insertion Sort",
         description:
-        "lorem12456789",
+            "Insertion sort builds the final sorted array one element at a time, by repeatedly taking the next unsorted element and inserting it into its correct position among the previously sorted elements. This process continues until all elements have been inserted into their proper place, resulting in a sorted list.",
         worstCase: "O(n²)",
         averageCase: "O(n²)",
         bestCase: "O(n)",
@@ -79,17 +78,17 @@ export const sortingAlgorithmsData = {
     merge:{
         title:"Merge Sort",
         description:
-        "lorem12456789",
-        worstCase: "O(n²)",
-        averageCase: "O(n²)",
-        bestCase: "O(n)",
+            "Merge sort divides the unsorted list into n sublists, each containing one element (a list of one element is considered sorted), and then repeatedly merges these sublists to produce new sorted sublists until there is only one sublist remaining, which is the sorted list. This algorithm uses a divide-and-conquer approach, splitting the list in half recursively and merging the sorted halves back together.",
+        worstCase: "O(n log n)",
+        averageCase: "O(n log n)",
+        bestCase: "O(n log n)",
     },
     quick:{
         title:"Quick Sort",
         description:
-        "lorem12456789",
+            "Quick sort selects a 'pivot' element from the array and partitions the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively, and the sorted sub-arrays are combined with the pivot to form the sorted array.",
         worstCase: "O(n²)",
-        averageCase: "O(n²)",
-        bestCase: "O(n)",
+        averageCase: "O(n log n)",
+        bestCase: "O(n log n)",
     }
 }
